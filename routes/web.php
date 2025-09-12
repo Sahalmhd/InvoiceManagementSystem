@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InvoiceSystem\CustomerController;
+use App\Http\Controllers\InvoiceSystem\InvoiceController;
 use App\Http\Controllers\InvoiceSystem\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::resource('products', ProductController::class);
     Route::resource('customers', CustomerController::class);
+    Route::resource('invoices', InvoiceController::class);
 
 });
 

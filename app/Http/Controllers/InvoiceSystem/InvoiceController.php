@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\InvoiceSystem;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
@@ -12,7 +14,9 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::all();
+
+        return view('Invoices.index', compact('customers'));
     }
 
     /**
@@ -20,15 +24,28 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+        $products = Product::all();
+
+        return view('Invoices.create', compact('customers', 'products'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $validated = $request->validate([
+            'customer_id' => 'required|',
+            'product_id' => 'required',
+            'quantity' => 'required',
+        ]);
+
+        $product =Product::findOrFail($validated['product_id']);
+        $total = $product->price * $validated['quantity'];
+
+        return $total;
+
+
     }
 
     /**
