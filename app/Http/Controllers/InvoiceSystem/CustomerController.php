@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\InvoiceSystem;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use Illuminate\Http\Request;
+
 
 class CustomerController extends Controller
 {
@@ -12,7 +14,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::paginate(10);
+        return view('customers.index', compact('customers'));
     }
 
     /**
@@ -20,7 +23,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('customers.create');
     }
 
     /**
@@ -28,7 +31,25 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required',
+            'phone' => 'required',
+            'address' => 'required'
+        ]);
+
+
+        $customer = new Customer;
+
+        $customer->name = $validated['name'];
+        $customer->email = $validated['email'];
+        $customer->phone = $validated['phone'];
+        $customer->address = $validated['address'];
+
+        $customer->save();
+
+        return redirect('customers')->with('message', 'Customer Added Sucessfullyy');
     }
 
     /**
@@ -44,7 +65,9 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+
+        return view('customers.edit', compact('customer'));
     }
 
     /**
@@ -52,7 +75,25 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required',
+            'phone' => 'required',
+            'address' => 'required'
+        ]);
+
+
+        $customer = Customer::findOrFail($id);
+
+        $customer->name = $validated['name'];
+        $customer->email = $validated['email'];
+        $customer->phone = $validated['phone'];
+        $customer->address = $validated['address'];
+
+        $customer->save();
+
+        return redirect('customers')->with('message', 'Customer Added Sucessfullyy');
     }
 
     /**
@@ -60,6 +101,8 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        $customer->delete();
+        return redirect('customers')->with('delete', 'customer deleted');
     }
 }

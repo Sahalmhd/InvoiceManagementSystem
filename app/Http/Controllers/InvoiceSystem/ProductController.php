@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\InvoiceSystem;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,7 +13,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::paginate(10);
+        return view('Products.index', compact('products'));
     }
 
     /**
@@ -20,7 +22,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('Products.create');
     }
 
     /**
@@ -28,7 +30,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'price' => 'required',
+            'description' => 'nullable'
+        ]);
+
+        $products = new Product;
+
+        $products->name = $validated['name'];
+        $products->price = $validated['price'];
+        $products->description = $validated['description'];
+
+        $products->save();
+
+        return redirect('products')->with('message', 'Product Add Sucessfullyy');
     }
 
     /**
@@ -44,7 +60,9 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        return view('Products.edit', compact('product'));
     }
 
     /**
@@ -52,7 +70,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'price' => 'required',
+            'description' => 'nullable'
+        ]);
+        $product = Product::findOrFail($id);
+
+        $product->name = $validated['name'];
+        $product->price = $validated['price'];
+        $product->description = $validated['description'];
+
+        $product->save();
+
+        return redirect('products')->with('message', 'Product updated Sucessfullyy');
     }
 
     /**
@@ -60,6 +91,10 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+
+
+        return redirect('products')->with('delete', 'Product deleted');
     }
 }
