@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\InvoiceSystem;
 
 use App\Http\Controllers\Controller;
+use App\Mail\InvoiceMail;
 use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class InvoiceController extends Controller
 {
@@ -54,6 +56,7 @@ class InvoiceController extends Controller
         $invoice->invoice_date = now();
         $invoice->due_date = now()->addWeek();
         $invoice->save();
+        Mail::to($invoice->customer->email)->send(new InvoiceMail($invoice));
 
         return redirect('invoices')->with('message', 'invoices Added Sucessfullyy');
     }
@@ -104,6 +107,7 @@ class InvoiceController extends Controller
         $invoice->invoice_date = now();
         $invoice->due_date = now()->addWeek();
         $invoice->save();
+
         return redirect('invoices')->with('message', 'invoices updated Sucessfullyy');
     }
 
