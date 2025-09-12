@@ -95,6 +95,6 @@ class ProductController extends Controller
         $product->delete();
 
 
-        return redirect('products')->with('delete', 'Product deleted');
+        return redirect('invoices')->with('delete', 'Product deleted');
     }
 }

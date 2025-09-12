@@ -4,6 +4,7 @@ namespace App\Http\Controllers\InvoiceSystem;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Invoice;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,10 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
+        $invoices = Invoice::with(['customer', 'product'])->paginate(10);
 
-        return view('Invoices.index', compact('customers'));
+
+        return view('Invoices.index', compact('invoices'));
     }
 
     /**
@@ -33,19 +35,27 @@ class InvoiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $validated = $request->validate([
-            'customer_id' => 'required|',
-            'product_id' => 'required',
+            'customer_id' => 'required|exists:customers,id',
+            'product_id' => 'required|exists:products,id',
             'quantity' => 'required',
         ]);
 
-        $product =Product::findOrFail($validated['product_id']);
+        $product = Product::findOrFail($validated['product_id']);
         $total = $product->price * $validated['quantity'];
 
-        return $total;
+        $invoice = new Invoice;
+        $invoice->customer_id = $validated['customer_id'];
+        $invoice->product_id = $validated['product_id'];
+        $invoice->quantity = $validated['quantity'];
+        $invoice->total_amount = $total;
+        $invoice->invoice_date = now();
+        $invoice->due_date = now()->addWeek();
+        $invoice->save();
 
-
+        return redirect('invoices')->with('message', 'invoices Added Sucessfullyy');
     }
 
     /**
@@ -61,7 +71,14 @@ class InvoiceController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        $invoice = Invoice::findOrFail($id);
+
+        $customers = Customer::all();
+        $products = Product::all();
+
+
+        return view('Invoices.edit', compact('invoice', 'customers', 'products'));
     }
 
     /**
@@ -69,7 +86,25 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'customer_id' => 'required|exists:customers,id',
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required',
+        ]);
+
+        $product = Product::findOrFail($validated['product_id']);
+        $total = $product->price * $validated['quantity'];
+
+        $invoice = Invoice::findOrFail($id);
+
+        $invoice->customer_id = $validated['customer_id'];
+        $invoice->product_id = $validated['product_id'];
+        $invoice->quantity = $validated['quantity'];
+        $invoice->total_amount = $total;
+        $invoice->invoice_date = now();
+        $invoice->due_date = now()->addWeek();
+        $invoice->save();
+        return redirect('invoices')->with('message', 'invoices updated Sucessfullyy');
     }
 
     /**
@@ -77,6 +112,8 @@ class InvoiceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $invoice = Invoice::findOrFail($id);
+        $invoice->delete();
+        return redirect('products')->with('delete', 'Invoice deleted Sucessfullyy');
     }
 }

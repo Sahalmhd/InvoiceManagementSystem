@@ -8,13 +8,16 @@
                     <div class="card-body">
                         <h3 class="mb-4 text-center">Create Product</h3>
 
-                        <form action="{{ route('invoices.store') }}" method="POST">
+                        <form action="{{ route('invoices.update', $invoice->id) }}" method="POST">
                             @csrf
+                            @method('PUT')
+
 
                             <div class="mb-3">
                                 <label for="name" class="form-label">Customer Name</label>
-                                <select class="selectpicker form-control @error('customer_id') is-invalid @enderror" id="" name="customer_id" aria-label="Default select example" data-style="btn-white" data-live-search="true">
-                                    <option selected>Select Customer</option>
+                                <select class="selectpicker form-control" id="" name="customer_id"
+                                    aria-label="Default select example" data-style="btn-white" data-live-search="true">
+                                    <option value="{{ $invoice->customer->id }}"> {{ $invoice->customer->name }}</option>
                                     @foreach ($customers as $customer)
                                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                     @endforeach
@@ -23,21 +26,22 @@
 
                             <div class="mb-3">
                                 <label for="name" class="form-label">Product Name</label>
-                                <select name='product_id' id="product_id"class="selectpicker form-control @error('product_id') is-invalid @enderror"aria-label="Default select example" data-style="btn-white" data-live-search="true">
-                                    <option selected>Select Product</option>
-                                    @foreach ($products as $product)
-                                        <option value="{{ $product->id }}" data-price="{{ $product->price }}">
-                                            {{ $product->name }} - ₹{{ $product->price }}
-                                    @endforeach
+                                <select name='product_id' id="product_id"class="selectpicker form-control "aria-label="Default select example" data-style="btn-white" data-live-search="true">
+                                        <option value="{{ $invoice->product->id }}" selected>{{ $invoice->product->name }}</option>
+                                         @foreach ($products as $product)
+                                    <option value="{{ $product->id }}" data-price="{{ $product->price }}">
+                                        {{ $product->name }} - ₹{{ $product->price }}
+                                        @endforeach
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Quantity</label>
-                                <input type="number" name="quantity" id="quantity"class="form-control   @error('quantity') is-invalid @enderror" value="1" min="1">
+                                <input type="number" name="quantity"
+                                    id="quantity"class="form-control   @error('quantity') is-invalid @enderror" value="{{ $invoice->quantity }}" >
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Total Amount</label>
-                                <span id="total_amount" class="form-control">₹0.00</span>
+                                <span id="total_amount" class="form-control"></span>
                             </div>
 
                             <div class="d-flex justify-content-between">
@@ -58,10 +62,10 @@
             $('.selectpicker').selectpicker({});
 
             function calculateTotal() {
-                var quantity = parseInt($('#quantity').val()) || 0;
-                var price = parseFloat($('#product_id option:selected').data('price')) || 0;
+                var quantity = parseInt($('#quantity').val()) || {{ $invoice->quantity }};
+                var price = parseFloat($('#product_id option:selected').data('price')) ||{{ $invoice->product->price }};
                 var total = price * quantity;
-                $('#total_amount').text('₹' +total.toFixed(2));
+                $('#total_amount').text('₹' + total.toFixed(2));
             }
 
             $('#product_id').change(function() {
