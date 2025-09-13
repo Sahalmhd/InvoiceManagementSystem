@@ -7,7 +7,14 @@
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
                         <h3 class="mb-4 text-center">Update Product</h3>
-
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                         <form action="{{ route('products.update',$product->id) }}" method="POST">
                             @csrf
                                 @method('PUT')

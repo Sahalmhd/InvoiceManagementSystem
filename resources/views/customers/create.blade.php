@@ -7,6 +7,15 @@
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
                         <h3 class="mb-4 text-center">Create Customers</h3>
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                         <form action="{{ route('customers.store') }}" method="POST">
                             @csrf
                             <div class="mb-3">
@@ -23,8 +32,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="address" class="form-label">Address</label>
-                                <textarea type="text" name="address" id="name" class="form-control "></textarea>
+                                <label for="address" class="form-label ">Address</label>
+                                <textarea type="text" name="address" id="name" class="form-control @error('phone') is-invalid @enderror"></textarea>
                             </div>
 
                             <div class="d-flex justify-content-between">
