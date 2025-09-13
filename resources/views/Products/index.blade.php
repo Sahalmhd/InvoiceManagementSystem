@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center mt-5">
-            <div class="col-md-8">
+        <div class="col-12 col-md-8">
                  <a class="btn btn-secondary mb-2 " href="{{ route('dashboard') }}" role="button">Dashboard</a>
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
@@ -18,6 +18,8 @@
                             </div>
                         @endif
                         <a class="btn btn-primary mb-2" href="{{ route('products.create') }}" role="button">Create Products</a>
+                        <div class="table-responsive">
+
                         <table class="table">
                             <thead>
                                 <tr>
@@ -56,6 +58,7 @@
 
                             </tbody>
                         </table>
+                        </div>
                         {{ $products->links() }}
                     </div>
                 </div>

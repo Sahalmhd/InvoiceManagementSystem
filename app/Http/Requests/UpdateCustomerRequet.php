@@ -24,7 +24,7 @@ class UpdateCustomerRequet extends FormRequest
         return [
              'name' => 'required|max:255',
             'email' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|integer',
             'address' => 'required'
         ];
     }

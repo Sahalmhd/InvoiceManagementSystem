@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center mt-5">
-            <div class="col-md-6">
+                <div class="col-12 col-md-6">
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
                         <h3 class="mb-4 text-center">Create Customers</h3>
@@ -15,7 +15,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" name="email" id="name"class="form-control mb-1  @error('email') is-invalid @enderror>
+                                <input type="email" name="email" id="name"class="form-control mb-1  @error('email') is-invalid @enderror">
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone</label>

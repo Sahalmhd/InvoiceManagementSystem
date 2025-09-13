@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center mt-5">
-            <div class="col-md-6">
+                <div class="col-12 col-md-6">
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
                         <h3 class="mb-4 text-center">Create Customers</h3>
@@ -22,8 +22,8 @@
                                     class="form-control   @error('email ') is-invalid @enderror">
                             </div>
                             <div class="mb-3">
-                                <label for="price" class="form-label">Phone</label>
-                                <input type="number" name="phone" id="name"value="{{$customer->phone }}"
+                                <label for="number" class="form-label">Phone</label>
+                                <input type="tel" name="phone" id="name"value="{{$customer->phone }}"
                                     class="form-control   @error('phone') is-invalid @enderror">
                             </div>
                             <div class="mb-3">

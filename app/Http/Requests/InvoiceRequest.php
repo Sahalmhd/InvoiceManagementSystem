@@ -24,7 +24,7 @@ class InvoiceRequest extends FormRequest
         return [
             'customer_id' => 'required|exists:customers,id',
             'product_id' => 'required|exists:products,id',
-            'quantity' => 'required',
+            'quantity' => 'required|integer',
         ];
     }
 }
