@@ -38,7 +38,7 @@
                             <tbody>
                                 @foreach ($invoices as $invoice)
                                     <tr>
-                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <th scope="row">{{ $invoices->firstItem()+$loop->index}}</th>
                                         <td>{{ $invoice->id }}</td>
                                         <td>{{ $invoice->customer->name }}</td>
                                         <td>{{ $invoice->product->name }}</td>

@@ -89,6 +89,6 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->delete();
 
-        return redirect('invoices')->with('delete', 'Product deleted');
+        return redirect('products')->with('delete', 'Product deleted');
     }
 }

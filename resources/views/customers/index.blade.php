@@ -36,7 +36,7 @@
 
                                 @foreach ($customers as $customer)
                                     <tr>
-                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <th scope="row">{{ $customers->firstItem()+$loop->index}}</th>
                                         <td>{{ $customer->name }}</td>
                                         <td>{{ $customer->email }}</td>
                                         <td>{{ $customer->phone }}</td>

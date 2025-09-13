@@ -6,7 +6,7 @@
         <div class="col-12 col-md-6">
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
-                        <h3 class="mb-4 text-center">Create Product</h3>
+                        <h3 class="mb-4 text-center">Create Invoice</h3>
                         @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -15,6 +15,7 @@
                                 @endforeach
                             </ul>
                         </div>
+                        @endif
                         <form action="{{ route('invoices.store') }}" method="POST">
                             @csrf
                             <div class="mb-3">

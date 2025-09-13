@@ -15,6 +15,8 @@
                                 @endforeach
                             </ul>
                         </div>
+                        @endif
+
                         <form action="{{ route('invoices.update', $invoice->id) }}" method="POST">
                             @csrf
                             @method('PUT')

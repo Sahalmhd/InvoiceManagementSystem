@@ -104,6 +104,7 @@ class InvoiceController extends Controller
         $invoice->invoice_date = now();
         $invoice->due_date = now()->addWeek();
         $invoice->save();
+        Mail::to($invoice->customer->email)->send(new InvoiceMail($invoice));
 
         return redirect('invoices')->with('message', 'invoices updated Sucessfullyy');
     }
