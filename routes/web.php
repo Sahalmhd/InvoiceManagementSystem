@@ -24,8 +24,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('products', ProductController::class);
     Route::resource('customers', CustomerController::class);
     Route::resource('invoices', InvoiceController::class);
-
 });
+ Route::get('/invoices/view/{id}', [InvoiceController::class, 'show']);
+
 
 
 require __DIR__.'/auth.php';

@@ -4,6 +4,8 @@
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-8">
+                 <a class="btn btn-secondary mb-2 " href="{{ route('dashboard') }}" role="button">
+                            Dashboard</a>
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
                         <h3 class="mb-4 text-center"> Customers</h3>

@@ -1,148 +1,152 @@
 @extends('layouts.master')
 
 @section('content')
+    <style>
+        body {
+            margin-top: 20px;
+            background-color: #eee;
+        }
 
+        .card {
+            box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+        }
 
-<style>
-   body{margin-top:20px;
-background-color:#eee;
-}
-
-.card {
-    box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
-}
-.card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 0 solid rgba(0,0,0,.125);
-    border-radius: 1rem;
-}
-</style>
-<div class="container">
-<div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="invoice-title">
-                        <h4 class="float-end font-size-15">Invoice #{{$invoice->id}}</h4>
-                        <div class="mb-4">
-                           <h2 class="mb-1 text-muted">{{config('app.name')}}</h2>
-                        </div>
-                        <div class="text-muted">
-                            <p class="mb-1">Test demo</p>
-                            <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i> example@123.com</p>
-                            <p><i class="uil uil-phone me-1"></i> 012-345-6789</p>
-                        </div>
-                    </div>
-
-                    <hr class="my-4">
-
-                    <div class="row">
-                        <div class="col-sm-6">
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, .125);
+            border-radius: 1rem;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="invoice-title">
+                            <h4 class="float-end font-size-15">Invoice #{{ $invoice->id }}</h4>
+                            <div class="mb-4">
+                                <h2 class="mb-1 text-muted">{{ config('app.name') }}</h2>
+                            </div>
                             <div class="text-muted">
-                                <h5 class="font-size-16 mb-3">Billed To:</h5>
-                                <h5 class="font-size-15 mb-2">{{$invoice->customer->name}}</h5>
-                                <p class="mb-1">{{$invoice->customer->address}}</p>
-                                <p class="mb-1">{{$invoice->customer->email}}</p>
-                                <p>{{$invoice->customer->phone}}</p>
+                                <p class="mb-1">Test demo</p>
+                                <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i> example@123.com</p>
+                                <p><i class="uil uil-phone me-1"></i> 012-345-6789</p>
                             </div>
                         </div>
-                        <!-- end col -->
-                        <div class="col-sm-6">
-                            <div class="text-muted text-sm-end">
-                                <div>
-                                    <h5 class="font-size-15 mb-1">Invoice No:</h5>
-                                    <p>#{{$invoice->id}}</p>
+
+                        <hr class="my-4">
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="text-muted">
+                                    <h5 class="font-size-16 mb-3">Billed To:</h5>
+                                    <h5 class="font-size-15 mb-2">{{ $invoice->customer->name }}</h5>
+                                    <p class="mb-1">{{ $invoice->customer->address }}</p>
+                                    <p class="mb-1">{{ $invoice->customer->email }}</p>
+                                    <p>{{ $invoice->customer->phone }}</p>
                                 </div>
-                                <div class="mt-4">
-                                    <h5 class="font-size-15 mb-1">Invoice Date:</h5>
-                                    <p>{{$invoice->invoice_date}}</p>
-                                </div>
-                                {{-- <div class="mt-4">
+                            </div>
+                            <!-- end col -->
+                            <div class="col-sm-6">
+                                <div class="text-muted text-sm-end">
+                                    <div>
+                                        <h5 class="font-size-15 mb-1">Invoice No:</h5>
+                                        <p>#{{ $invoice->id }}</p>
+                                    </div>
+                                    <div class="mt-4">
+                                        <h5 class="font-size-15 mb-1">Invoice Date:</h5>
+                                        <p>{{ $invoice->invoice_date }}</p>
+                                    </div>
+                                    {{-- <div class="mt-4">
                                     <h5 class="font-size-15 mb-1">Order No:</h5>
                                     <p>#1123456</p>
                                 </div> --}}
+                                </div>
                             </div>
+                            <!-- end col -->
                         </div>
-                        <!-- end col -->
-                    </div>
-                    <!-- end row -->
-                    
-                    <div class="py-2">
-                        <h5 class="font-size-15">Order Summary</h5>
+                        <!-- end row -->
 
-                        <div class="table-responsive">
-                            <table class="table align-middle table-nowrap table-centered mb-0">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 70px;">No.</th>
-                                        <th>Item</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th class="text-end" style="width: 120px;">Total</th>
-                                    </tr>
-                                </thead><!-- end thead -->
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">01</th>
-                                        <td>
-                                            <div>
-                                                <h5 class="text-truncate font-size-14 mb-1">{{$invoice->product->name}}</h5>
-                                                {{-- <p class="text-muted mb-0">Watch, Black</p> --}}
-                                            </div>
-                                        </td>
-                                        <td>₹{{$invoice->product->price}}</td>
-                                        <td>{{$invoice->quantity}}</td>
-                                        <td class="text-end">₹{{$invoice->total_amount}}</td>
-                                    </tr>
-                                   
-                                    <!-- end tr -->
-                                    <tr>
-                                        <th scope="row" colspan="4" class="text-end">Sub Total</th>
-                                        <td class="text-end">₹{{$invoice->total_amount}}</td>
-                                    </tr>
-                                    <!-- end tr -->
-                                    {{-- <tr>
+                        <div class="py-2">
+                            <h5 class="font-size-15">Order Summary</h5>
+
+                            <div class="table-responsive">
+                                <table class="table align-middle table-nowrap table-centered mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 70px;">No.</th>
+                                            <th>Item</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th class="text-end" style="width: 120px;">Total</th>
+                                        </tr>
+                                    </thead><!-- end thead -->
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">01</th>
+                                            <td>
+                                                <div>
+                                                    <h5 class="text-truncate font-size-14 mb-1">
+                                                        {{ $invoice->product->name }}</h5>
+                                                    {{-- <p class="text-muted mb-0">Watch, Black</p> --}}
+                                                </div>
+                                            </td>
+                                            <td>₹{{ $invoice->product->price }}</td>
+                                            <td>{{ $invoice->quantity }}</td>
+                                            <td class="text-end">₹{{ $invoice->total_amount }}</td>
+                                        </tr>
+
+                                        <!-- end tr -->
+                                        <tr>
+                                            <th scope="row" colspan="4" class="text-end">Sub Total</th>
+                                            <td class="text-end">₹{{ $invoice->total_amount }}</td>
+                                        </tr>
+                                        <!-- end tr -->
+                                        {{-- <tr>
                                         <th scope="row" colspan="4" class="border-0 text-end">
                                             Discount :</th>
                                         <td class="border-0 text-end">- $25.50</td>
                                     </tr> --}}
-                                    <!-- end tr -->
-                                    {{-- <tr>
+                                        <!-- end tr -->
+                                        {{-- <tr>
                                         <th scope="row" colspan="4" class="border-0 text-end">
                                             Shipping Charge :</th>
                                         <td class="border-0 text-end">$20.00</td>
                                     </tr> --}}
-                                    <!-- end tr -->
-                                    {{-- <tr>
+                                        <!-- end tr -->
+                                        {{-- <tr>
                                         <th scope="row" colspan="4" class="border-0 text-end">
                                             Tax</th>
                                         <td class="border-0 text-end">$12.00</td>
                                     </tr> --}}
-                                    <!-- end tr -->
-                                    <tr>
-                                        <th scope="row" colspan="4" class="border-0 text-end">Total</th>
-                                        <td class="border-0 text-end"><h4 class="m-0 fw-semibold">₹{{$invoice->total_amount}}</h4></td>
-                                    </tr>
-                                    <!-- end tr -->
-                                </tbody><!-- end tbody -->
-                            </table><!-- end table -->
-                        </div><!-- end table responsive -->
-                        <div class="d-print-none mt-4">
-                            <div class="float-end">
-                                <a href="javascript:window.print()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
-                                {{-- <a href="#" class="btn btn-primary w-md">Send</a> --}}
+                                        <!-- end tr -->
+                                        <tr>
+                                            <th scope="row" colspan="4" class="border-0 text-end">Total</th>
+                                            <td class="border-0 text-end">
+                                                <h4 class="m-0 fw-semibold">₹{{ $invoice->total_amount }}</h4>
+                                            </td>
+                                        </tr>
+                                        <!-- end tr -->
+                                    </tbody><!-- end tbody -->
+                                </table><!-- end table -->
+                            </div><!-- end table responsive -->
+                            <div class="d-print-none mt-4">
+                                <div class="float-end">
+                                    <a href="javascript:window.print()" class="btn btn-success me-1"><i
+                                            class="fa fa-print"></i></a>
+                                    {{-- <a href="#" class="btn btn-primary w-md">Send</a> --}}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div><!-- end col -->
+            </div><!-- end col -->
+        </div>
     </div>
-</div>
 @endsection

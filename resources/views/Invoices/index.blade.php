@@ -4,6 +4,8 @@
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-8">
+                <a class="btn btn-secondary mb-2 " href="{{ route('dashboard') }}" role="button">
+                    Dashboard</a>
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
                         <h3 class="mb-4 text-center"> Invoices</h3>
@@ -46,7 +48,7 @@
                                         <td>{{ $invoice->due_date }}</td>
                                         <td>
                                             <div class="d-flex gap-2"><a
-                                                    href="{{ route('invoices.show', $invoice->id) }}"class="btn p-0 text-info">
+                                                    href="{{ route('invoices.show', encrypt($invoice->id)) }}"class="btn p-0 text-info">
                                                     <i class="bi bi-eye" style="font-size:18px;"></i>
                                                 </a>
                                                 <a
