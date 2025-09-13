@@ -19,7 +19,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="number" name="phone" id="name"class="form-control   @error('phone') is-invalid @enderror">
+                                <input type="tel" name="phone" id="name"class="form-control   @error('phone') is-invalid @enderror">
                             </div>
 
                             <div class="mb-3">
