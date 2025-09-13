@@ -12,7 +12,6 @@
                             @csrf
                                 @method('PUT')
 
-
                             <div class="mb-3">
                                 <label for="name" class="form-label">Product Name</label>
                                 <input type="text" name="name" id="name" value="{{$product->name}}"

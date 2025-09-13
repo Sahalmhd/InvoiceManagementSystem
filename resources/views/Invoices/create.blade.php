@@ -7,10 +7,8 @@
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
                         <h3 class="mb-4 text-center">Create Product</h3>
-
                         <form action="{{ route('invoices.store') }}" method="POST">
                             @csrf
-
                             <div class="mb-3">
                                 <label for="name" class="form-label">Customer Name</label>
                                 <select class="selectpicker form-control @error('customer_id') is-invalid @enderror" id="" name="customer_id" aria-label="Default select example" data-style="btn-white" data-live-search="true">
@@ -20,7 +18,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
                             <div class="mb-3">
                                 <label for="name" class="form-label">Product Name</label>
                                 <select name='product_id' id="product_id"class="selectpicker form-control @error('product_id') is-invalid @enderror"aria-label="Default select example" data-style="btn-white" data-live-search="true">
@@ -39,7 +36,7 @@
                                 <label for="name" class="form-label">Total Amount</label>
                                 <span id="total_amount" class="form-control">₹0.00</span>
                             </div>
-
+                            
                             <div class="d-flex justify-content-between">
                                 <a href="{{ route('invoices.index') }}" class="btn btn-secondary">Cancel</a>
                                 <button type="submit" class="btn btn-success">Save Product</button>

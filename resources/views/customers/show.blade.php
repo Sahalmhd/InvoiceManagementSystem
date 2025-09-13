@@ -35,7 +35,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                                 @foreach ($invoices as $invoice)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
@@ -47,7 +46,8 @@
                                         <td>{{ $invoice->invoice_date }}</td>
                                         <td>{{ $invoice->due_date }}</td>
                                         <td>
-                                            <div class="d-flex gap-2"><a
+                                            <div class="d-flex gap-2">
+                                                <a
                                                     href="{{ route('invoices.show', encrypt($invoice->id)) }}"class="btn p-0 text-info">
                                                     <i class="bi bi-eye" style="font-size:18px;"></i>
                                                 </a>

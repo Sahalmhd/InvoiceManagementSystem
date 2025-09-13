@@ -4,8 +4,7 @@
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-8">
-                 <a class="btn btn-secondary mb-2 " href="{{ route('dashboard') }}" role="button">
-                            Dashboard</a>
+                 <a class="btn btn-secondary mb-2 " href="{{ route('dashboard') }}" role="button">Dashboard</a>
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
                         <h3 class="mb-4 text-center"> Product</h3>
@@ -18,8 +17,7 @@
                                 {{ session('delete') }}
                             </div>
                         @endif
-                        <a class="btn btn-primary mb-2" href="{{ route('products.create') }}" role="button">Create
-                            Products</a>
+                        <a class="btn btn-primary mb-2" href="{{ route('products.create') }}" role="button">Create Products</a>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -52,8 +50,6 @@
                                                     <i class="bi bi-trash" style="font-size:18px;"></i>
                                                 </button>
                                             </form>
-
-
                                         </td>
                                     </tr>
                                 @endforeach
@@ -61,7 +57,6 @@
                             </tbody>
                         </table>
                         {{ $products->links() }}
-
                     </div>
                 </div>
             </div>

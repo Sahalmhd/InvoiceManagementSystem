@@ -19,8 +19,7 @@
                             </div>
                         @endif
 
-                        <a class="btn btn-primary mb-2" href="{{ route('customers.create') }}" role="button">Create
-                            Customers</a>
+                        <a class="btn btn-primary mb-2" href="{{ route('customers.create') }}" role="button">Create Customers</a>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -42,9 +41,6 @@
                                         <td>{{ $customer->phone }}</td>
                                         <td>{{ $customer->address }}</td>
                                         <td>
-
-
-
                                             <div class="d-flex gap-2">
                                                 <a
                                                     href="{{ route('customers.show', $customer->id) }}"class="btn p-0 text-info">
@@ -68,11 +64,9 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                         {{ $customers->links() }}
-
                     </div>
                 </div>
             </div>

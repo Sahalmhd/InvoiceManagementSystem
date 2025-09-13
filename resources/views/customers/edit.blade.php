@@ -6,30 +6,28 @@
             <div class="col-md-6">
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
-                        <h3 class="mb-4 text-center">Create Product</h3>
+                        <h3 class="mb-4 text-center">Create Customers</h3>
 
                         <form action="{{ route('customers.update',$customer->id) }}" method="POST">
                             @csrf
                                 @method('PUT')
 
-
                             <div class="mb-3">
-                                <label for="name" class="form-label">Product Name</label>
-                                <input type="text" name="name" id="name" value="{{$customer->name}}"
-                                    class="form-control @error('name') is-invalid @enderror">
+                                <label for="name" class="form-label"> Name</label>
+                                <input type="text" name="name" id="name" value="{{$customer->name}}"class="form-control @error('name') is-invalid @enderror">
                             </div>
                             <div class="mb-3">
-                                <label for="price" class="form-label">Product price</label>
+                                <label for="price" class="form-label">Email</label>
                                 <input type="text" name="email" id="name"value="{{$customer->email }}"
                                     class="form-control   @error('email ') is-invalid @enderror">
                             </div>
                             <div class="mb-3">
-                                <label for="price" class="form-label">Product price</label>
+                                <label for="price" class="form-label">Phone</label>
                                 <input type="number" name="phone" id="name"value="{{$customer->phone }}"
                                     class="form-control   @error('phone') is-invalid @enderror">
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Product description</label>
+                                <label for="name" class="form-label">Address</label>
                                 <textarea type="text" name="address" id="name" class="form-control ">{{$customer->address }}</textarea>
                             </div>
 

@@ -68,7 +68,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, string $id)
     {
-            $validated = $request->validated();
+        $validated = $request->validated();
 
         $product = Product::findOrFail($id);
 
@@ -88,7 +88,6 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->delete();
-
 
         return redirect('invoices')->with('delete', 'Product deleted');
     }

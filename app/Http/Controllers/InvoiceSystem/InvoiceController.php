@@ -20,7 +20,6 @@ class InvoiceController extends Controller
     {
         $invoices = Invoice::with(['customer', 'product'])->paginate(10);
 
-
         return view('Invoices.index', compact('invoices'));
     }
 

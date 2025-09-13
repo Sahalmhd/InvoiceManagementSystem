@@ -4,11 +4,10 @@
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-8">
-                <a class="btn btn-secondary mb-2 " href="{{ route('dashboard') }}" role="button">
-                    Dashboard</a>
+                <a class="btn btn-secondary mb-2 " href="{{ route('dashboard') }}" role="button">Dashboard</a>
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
-                        <h3 class="mb-4 text-center"> Invoices</h3>
+                        <h3 class="mb-4 text-center">Invoices</h3>
                         @if (session('message'))
                             <div class="alert alert-success">
                                 {{ session('message') }}
@@ -18,8 +17,7 @@
                                 {{ session('delete') }}
                             </div>
                         @endif
-                        <a class="btn btn-primary mb-2" href="{{ route('invoices.create') }}" role="button">Create
-                            Invoices</a>
+                        <a class="btn btn-primary mb-2" href="{{ route('invoices.create') }}" role="button">Create Invoices</a>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -47,7 +45,8 @@
                                         <td>{{ $invoice->invoice_date }}</td>
                                         <td>{{ $invoice->due_date }}</td>
                                         <td>
-                                            <div class="d-flex gap-2"><a
+                                            <div class="d-flex gap-2">
+                                                <a
                                                     href="{{ route('invoices.show', encrypt($invoice->id)) }}"class="btn p-0 text-info">
                                                     <i class="bi bi-eye" style="font-size:18px;"></i>
                                                 </a>
@@ -65,7 +64,6 @@
                                                     </button>
                                                 </form>
                                             </div>
-
                                         </td>
                                     </tr>
                                 @endforeach

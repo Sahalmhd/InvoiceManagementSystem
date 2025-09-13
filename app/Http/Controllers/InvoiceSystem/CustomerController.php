@@ -4,6 +4,7 @@ namespace App\Http\Controllers\InvoiceSystem;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerRequest;
+use App\Http\Requests\UpdateCustomerRequet;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 
@@ -27,37 +28,10 @@ class CustomerController extends Controller
         return view('customers.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    // public function store(Request $request)
-    // {
-
-    //     $validated = $request->validate([
-    //         'name' => 'required|max:255',
-    //         'email' => 'required|unique:customers,email',
-    //         'phone' => 'required',
-    //         'address' => 'required'
-    //     ]);
-
-
-    //     $customer = new Customer;
-
-    //     $customer->name = $validated['name'];
-    //     $customer->email = $validated['email'];
-    //     $customer->phone = $validated['phone'];
-    //     $customer->address = $validated['address'];
-
-    //     $customer->save();
-
-    //     return redirect('customers')->with('message', 'Customer Added Sucessfullyy');
-    // }
-
      public function store(CustomerRequest $request)
     {
 
         $validated = $request->validated();
-
 
         $customer = new Customer;
 
@@ -97,7 +71,7 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CustomerRequest $request, string $id)
+    public function update(UpdateCustomerRequet $request, string $id)
     {
         $validated = $request->validated();
 
