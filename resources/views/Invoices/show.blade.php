@@ -2,252 +2,147 @@
 
 @section('content')
 
-<style>.invoice {
-    background: #fff;
-    padding: 20px
+
+<style>
+   body{margin-top:20px;
+background-color:#eee;
 }
 
-.invoice-company {
-    font-size: 20px
+.card {
+    box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
 }
-
-.invoice-header {
-    margin: 0 -20px;
-    background: #f0f3f4;
-    padding: 20px
-}
-
-.invoice-date,
-.invoice-from,
-.invoice-to {
-    display: table-cell;
-    width: 1%
-}
-
-.invoice-from,
-.invoice-to {
-    padding-right: 20px
-}
-
-.invoice-date .date,
-.invoice-from strong,
-.invoice-to strong {
-    font-size: 16px;
-    font-weight: 600
-}
-
-.invoice-date {
-    text-align: right;
-    padding-left: 20px
-}
-
-.invoice-price {
-    background: #f0f3f4;
-    display: table;
-    width: 100%
-}
-
-.invoice-price .invoice-price-left,
-.invoice-price .invoice-price-right {
-    display: table-cell;
-    padding: 20px;
-    font-size: 20px;
-    font-weight: 600;
-    width: 75%;
+.card {
     position: relative;
-    vertical-align: middle
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: 1rem;
 }
-
-.invoice-price .invoice-price-left .sub-price {
-    display: table-cell;
-    vertical-align: middle;
-    padding: 0 20px
-}
-
-.invoice-price small {
-    font-size: 12px;
-    font-weight: 400;
-    display: block
-}
-
-.invoice-price .invoice-price-row {
-    display: table;
-    float: left
-}
-
-.invoice-price .invoice-price-right {
-    width: 25%;
-    background: #2d353c;
-    color: #fff;
-    font-size: 28px;
-    text-align: right;
-    vertical-align: bottom;
-    font-weight: 300
-}
-
-.invoice-price .invoice-price-right small {
-    display: block;
-    opacity: .6;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 12px
-}
-
-.invoice-footer {
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-    font-size: 10px
-}
-
-.invoice-note {
-    color: #999;
-    margin-top: 80px;
-    font-size: 85%
-}
-
-.invoice>div:not(.invoice-footer) {
-    margin-bottom: 20px
-}
-
-.btn.btn-white, .btn.btn-white.disabled, .btn.btn-white.disabled:focus, .btn.btn-white.disabled:hover, .btn.btn-white[disabled], .btn.btn-white[disabled]:focus, .btn.btn-white[disabled]:hover {
-    color: #2d353c;
-    background: #fff;
-    border-color: #d9dfe3;
-}</style>
+</style>
 <div class="container">
-   <div class="col-md-12">
-      <div class="invoice">
-         <!-- begin invoice-company -->
-         <div class="invoice-company text-inverse f-w-600">
-            <span class="pull-right hidden-print">
-            <a href="javascript:;" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-file t-plus-1 text-danger fa-fw fa-lg"></i> Export as PDF</a>
-            <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> Print</a>
-            </span>
-            Company Name, Inc
-         </div>
-         <!-- end invoice-company -->
-         <!-- begin invoice-header -->
-         <div class="invoice-header">
-            <div class="invoice-from">
-               <small>from</small>
-               <address class="m-t-5 m-b-5">
-                  <strong class="text-inverse">Twitter, Inc.</strong><br>
-                  Street Address<br>
-                  City, Zip Code<br>
-                  Phone: (123) 456-7890<br>
-                  Fax: (123) 456-7890
-               </address>
+<div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="invoice-title">
+                        <h4 class="float-end font-size-15">Invoice #{{$invoice->id}}</h4>
+                        <div class="mb-4">
+                           <h2 class="mb-1 text-muted">{{config('app.name')}}</h2>
+                        </div>
+                        <div class="text-muted">
+                            <p class="mb-1">Test demo</p>
+                            <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i> example@123.com</p>
+                            <p><i class="uil uil-phone me-1"></i> 012-345-6789</p>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="text-muted">
+                                <h5 class="font-size-16 mb-3">Billed To:</h5>
+                                <h5 class="font-size-15 mb-2">{{$invoice->customer->name}}</h5>
+                                <p class="mb-1">{{$invoice->customer->address}}</p>
+                                <p class="mb-1">{{$invoice->customer->email}}</p>
+                                <p>{{$invoice->customer->phone}}</p>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-sm-6">
+                            <div class="text-muted text-sm-end">
+                                <div>
+                                    <h5 class="font-size-15 mb-1">Invoice No:</h5>
+                                    <p>#{{$invoice->id}}</p>
+                                </div>
+                                <div class="mt-4">
+                                    <h5 class="font-size-15 mb-1">Invoice Date:</h5>
+                                    <p>{{$invoice->invoice_date}}</p>
+                                </div>
+                                {{-- <div class="mt-4">
+                                    <h5 class="font-size-15 mb-1">Order No:</h5>
+                                    <p>#1123456</p>
+                                </div> --}}
+                            </div>
+                        </div>
+                        <!-- end col -->
+                    </div>
+                    <!-- end row -->
+                    
+                    <div class="py-2">
+                        <h5 class="font-size-15">Order Summary</h5>
+
+                        <div class="table-responsive">
+                            <table class="table align-middle table-nowrap table-centered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 70px;">No.</th>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th class="text-end" style="width: 120px;">Total</th>
+                                    </tr>
+                                </thead><!-- end thead -->
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">01</th>
+                                        <td>
+                                            <div>
+                                                <h5 class="text-truncate font-size-14 mb-1">{{$invoice->product->name}}</h5>
+                                                {{-- <p class="text-muted mb-0">Watch, Black</p> --}}
+                                            </div>
+                                        </td>
+                                        <td>₹{{$invoice->product->price}}</td>
+                                        <td>{{$invoice->quantity}}</td>
+                                        <td class="text-end">₹{{$invoice->total_amount}}</td>
+                                    </tr>
+                                   
+                                    <!-- end tr -->
+                                    <tr>
+                                        <th scope="row" colspan="4" class="text-end">Sub Total</th>
+                                        <td class="text-end">₹{{$invoice->total_amount}}</td>
+                                    </tr>
+                                    <!-- end tr -->
+                                    {{-- <tr>
+                                        <th scope="row" colspan="4" class="border-0 text-end">
+                                            Discount :</th>
+                                        <td class="border-0 text-end">- $25.50</td>
+                                    </tr> --}}
+                                    <!-- end tr -->
+                                    {{-- <tr>
+                                        <th scope="row" colspan="4" class="border-0 text-end">
+                                            Shipping Charge :</th>
+                                        <td class="border-0 text-end">$20.00</td>
+                                    </tr> --}}
+                                    <!-- end tr -->
+                                    {{-- <tr>
+                                        <th scope="row" colspan="4" class="border-0 text-end">
+                                            Tax</th>
+                                        <td class="border-0 text-end">$12.00</td>
+                                    </tr> --}}
+                                    <!-- end tr -->
+                                    <tr>
+                                        <th scope="row" colspan="4" class="border-0 text-end">Total</th>
+                                        <td class="border-0 text-end"><h4 class="m-0 fw-semibold">₹{{$invoice->total_amount}}</h4></td>
+                                    </tr>
+                                    <!-- end tr -->
+                                </tbody><!-- end tbody -->
+                            </table><!-- end table -->
+                        </div><!-- end table responsive -->
+                        <div class="d-print-none mt-4">
+                            <div class="float-end">
+                                <a href="javascript:window.print()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
+                                {{-- <a href="#" class="btn btn-primary w-md">Send</a> --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="invoice-to">
-               <small>to</small>
-               <address class="m-t-5 m-b-5">
-                  <strong class="text-inverse">Company Name</strong><br>
-                  Street Address<br>
-                  City, Zip Code<br>
-                  Phone: (123) 456-7890<br>
-                  Fax: (123) 456-7890
-               </address>
-            </div>
-            <div class="invoice-date">
-               <small>Invoice / July period</small>
-               <div class="date text-inverse m-t-5">August 3,2012</div>
-               <div class="invoice-detail">
-                  #0000123DSS<br>
-                  Services Product
-               </div>
-            </div>
-         </div>
-         <!-- end invoice-header -->
-         <!-- begin invoice-content -->
-         <div class="invoice-content">
-            <!-- begin table-responsive -->
-            <div class="table-responsive">
-               <table class="table table-invoice">
-                  <thead>
-                     <tr>
-                        <th>TASK DESCRIPTION</th>
-                        <th class="text-center" width="10%">RATE</th>
-                        <th class="text-center" width="10%">HOURS</th>
-                        <th class="text-right" width="20%">LINE TOTAL</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr>
-                        <td>
-                           <span class="text-inverse">Website design &amp; development</span><br>
-                           <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id sagittis arcu.</small>
-                        </td>
-                        <td class="text-center">$50.00</td>
-                        <td class="text-center">50</td>
-                        <td class="text-right">$2,500.00</td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <span class="text-inverse">Branding</span><br>
-                           <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id sagittis arcu.</small>
-                        </td>
-                        <td class="text-center">$50.00</td>
-                        <td class="text-center">40</td>
-                        <td class="text-right">$2,000.00</td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <span class="text-inverse">Redesign Service</span><br>
-                           <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id sagittis arcu.</small>
-                        </td>
-                        <td class="text-center">$50.00</td>
-                        <td class="text-center">50</td>
-                        <td class="text-right">$2,500.00</td>
-                     </tr>
-                  </tbody>
-               </table>
-            </div>
-            <!-- end table-responsive -->
-            <!-- begin invoice-price -->
-            <div class="invoice-price">
-               <div class="invoice-price-left">
-                  <div class="invoice-price-row">
-                     <div class="sub-price">
-                        <small>SUBTOTAL</small>
-                        <span class="text-inverse">$4,500.00</span>
-                     </div>
-                     <div class="sub-price">
-                        <i class="fa fa-plus text-muted"></i>
-                     </div>
-                     <div class="sub-price">
-                        <small>PAYPAL FEE (5.4%)</small>
-                        <span class="text-inverse">$108.00</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="invoice-price-right">
-                  <small>TOTAL</small> <span class="f-w-600">$4508.00</span>
-               </div>
-            </div>
-            <!-- end invoice-price -->
-         </div>
-         <!-- end invoice-content -->
-         <!-- begin invoice-note -->
-         <div class="invoice-note">
-            * Make all cheques payable to [Your Company Name]<br>
-            * Payment is due within 30 days<br>
-            * If you have any questions concerning this invoice, contact  [Name, Phone Number, Email]
-         </div>
-         <!-- end invoice-note -->
-         <!-- begin invoice-footer -->
-         <div class="invoice-footer">
-            <p class="text-center m-b-5 f-w-600">
-               THANK YOU FOR YOUR BUSINESS
-            </p>
-            <p class="text-center">
-               <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> matiasgallipoli.com</span>
-               <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> T:016-18192302</span>
-               <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> rtiemps@gmail.com</span>
-            </p>
-         </div>
-         <!-- end invoice-footer -->
-      </div>
-   </div>
+        </div><!-- end col -->
+    </div>
 </div>
 @endsection

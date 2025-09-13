@@ -68,7 +68,7 @@ class InvoiceController extends Controller
     {
     $invoice = Invoice::findOrFail($id);
 
-    return view('Invoices.show');
+    return view('Invoices.show',compact('invoice'));
 
         
     }
