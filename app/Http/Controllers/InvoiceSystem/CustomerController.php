@@ -57,7 +57,12 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        //
+    $customer = Customer::findOrFail($id);
+    $invoices = $customer->invoice()->paginate(10);
+
+
+    return view('customers.show',compact('customer','invoices'));
+
     }
 
     /**

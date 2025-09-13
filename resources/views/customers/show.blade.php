@@ -8,7 +8,7 @@
                     Dashboard</a>
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
-                        <h3 class="mb-4 text-center"> Customers</h3>
+                        <h3 class="mb-4 text-center"> Invoices</h3>
                         @if (session('message'))
                             <div class="alert alert-success">
                                 {{ session('message') }}
@@ -18,44 +18,45 @@
                                 {{ session('delete') }}
                             </div>
                         @endif
-
-                        <a class="btn btn-primary mb-2" href="{{ route('customers.create') }}" role="button">Create
-                            Customers</a>
+                        {{-- <a class="btn btn-primary mb-2" href="{{ route('invoices.create') }}" role="button">Create
+                            Invoices</a> --}}
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Id</th>
                                     <th scope="col">name</th>
-                                    <th scope="col">email</th>
-                                    <th scope="col">phone</th>
-                                    <th scope="col">Address</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Quantiy</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Invoice date</th>
+                                    <th scope="col">Due date</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                @foreach ($customers as $customer)
+                                @foreach ($invoices as $invoice)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>{{ $customer->name }}</td>
-                                        <td>{{ $customer->email }}</td>
-                                        <td>{{ $customer->phone }}</td>
-                                        <td>{{ $customer->address }}</td>
+                                        <td>{{ $invoice->id }}</td>
+                                        <td>{{ $invoice->customer->name }}</td>
+                                        <td>{{ $invoice->product->name }}</td>
+                                        <td>{{ $invoice->quantity }}</td>
+                                        <td>{{ $invoice->total_amount }}</td>
+                                        <td>{{ $invoice->invoice_date }}</td>
+                                        <td>{{ $invoice->due_date }}</td>
                                         <td>
-
-
-
-                                            <div class="d-flex gap-2">
-                                                <a
-                                                    href="{{ route('customers.show', $customer->id) }}"class="btn p-0 text-info">
+                                            <div class="d-flex gap-2"><a
+                                                    href="{{ route('invoices.show', encrypt($invoice->id)) }}"class="btn p-0 text-info">
                                                     <i class="bi bi-eye" style="font-size:18px;"></i>
                                                 </a>
                                                 <a
-                                                    href="{{ route('customers.edit', $customer->id) }}"class="btn p-0 text-success">
+                                                    href="{{ route('invoices.edit', $invoice->id) }}"class="btn p-0 text-success">
                                                     <i class="bi bi-pencil-square" style="font-size:18px;"></i>
                                                 </a>
-                                                <form action="{{ route('customers.destroy', $customer->id) }}"
-                                                    method="POST" class="d-inline">
+                                                <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST"
+                                                    class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
@@ -71,7 +72,7 @@
 
                             </tbody>
                         </table>
-                        {{ $customers->links() }}
+                        {{ $invoices->links() }}
 
                     </div>
                 </div>

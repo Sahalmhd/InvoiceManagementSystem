@@ -3,7 +3,7 @@
 
 Your invoice has been updated.
 
-<x-mail::button :url="route('invoices.show', encrypt($invoice->id))">
+<x-mail::button :url="route('invoices.view', encrypt($invoice->id))">
     View Invoice
 </x-mail::button>
 

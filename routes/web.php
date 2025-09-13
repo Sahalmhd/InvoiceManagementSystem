@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('customers', CustomerController::class);
     Route::resource('invoices', InvoiceController::class);
 });
- Route::get('/invoices/view/{id}', [InvoiceController::class, 'show']);
+ Route::get('/invoices/view/{id}', [InvoiceController::class, 'show'])->name('invoices.view');
 
 
 
