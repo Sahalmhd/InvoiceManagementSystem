@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\InvoiceSystem;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InvoiceRequest;
 use App\Mail\InvoiceMail;
 use App\Models\Customer;
 use App\Models\Invoice;
@@ -37,13 +38,9 @@ class InvoiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(InvoiceRequest $request)
     {
-        $validated = $request->validate([
-            'customer_id' => 'required|exists:customers,id',
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required',
-        ]);
+        $validated = $request->validated();
 
         $product = Product::findOrFail($validated['product_id']);
         $total = $product->price * $validated['quantity'];
@@ -91,13 +88,10 @@ class InvoiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(InvoiceRequest $request, string $id)
     {
-        $validated = $request->validate([
-            'customer_id' => 'required|exists:customers,id',
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required',
-        ]);
+        $validated = $request->validated();
+
 
         $product = Product::findOrFail($validated['product_id']);
         $total = $product->price * $validated['quantity'];

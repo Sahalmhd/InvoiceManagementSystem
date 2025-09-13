@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\InvoiceSystem;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -28,13 +29,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|max:255',
-            'price' => 'required',
-            'description' => 'nullable'
-        ]);
+        $validated = $request->validated();
+
 
         $products = new Product;
 
@@ -68,13 +66,10 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request, string $id)
     {
-        $validated = $request->validate([
-            'name' => 'required|max:255',
-            'price' => 'required',
-            'description' => 'nullable'
-        ]);
+            $validated = $request->validated();
+
         $product = Product::findOrFail($id);
 
         $product->name = $validated['name'];

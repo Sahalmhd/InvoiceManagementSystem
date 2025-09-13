@@ -6,7 +6,7 @@
             <div class="col-md-6">
                 <div class="card shadow-sm bg-light">
                     <div class="card-body">
-                        <h3 class="mb-4 text-center">Create Product</h3>
+                        <h3 class="mb-4 text-center">Update Product</h3>
 
                         <form action="{{ route('products.update',$product->id) }}" method="POST">
                             @csrf
